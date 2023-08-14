@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-content padding-y">
+
+    <!-- ============================ COMPONENT REGISTER   ================================= -->
+    <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+        <article class="card-body">
+            <header class="mb-4">
+                <h4 class="card-title">Sign up</h4>
+            </header>
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    {% include 'includes/alerts.html' %}
+                    <div class="col form-group">
+                        <label>First name</label>
+                        {{ form.first_name }}
+                    </div> <!-- form-group end.// -->
+                    <div class="col form-group">
+                        <label>Last name</label>
+                        {{ form.last_name }}
+                    </div> <!-- form-group end.// -->
+                </div> <!-- form-row end.// -->
+                <div class="form-group">
+                    <label>Email</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label>Enter password</label>
+                    <div class="input-group {% if form.password.errors %}is-invalid{% endif %}">
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-danger" onclick="clearPasswordErrors(this)">X</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% for error in form.password.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    {{ form.confirm_password }}
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        {{ form.newsletter_subscription }} Subscribe to Newsletter
+                    </label>
+                </div>      
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div> <!-- form-group end.// -->
+            </form>
+        </article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Have an account? <a href="{% url 'user_login' %}">Log In</a></p>
+    <br><br>
+    <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+    <script>
+        function clearPasswordErrors(element) {
+            var passwordField = element.parentElement.parentElement.querySelector('input[name="password"]');
+            var errorMessages = passwordField.parentElement.parentElement.querySelectorAll('.text-danger');
+            if (errorMessages) {
+                errorMessages.forEach(function(error) {
+                    error.remove();
+                });
+            }
+        }
+
+        // Preserve form data on page reload
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</section>
+
+<style>
+    .is-invalid input {
+        border-color: #dc3545;
+    }
+    .is-invalid .text-danger {
+        display: block;
+    }
+</style>
+
+{% endblock %}

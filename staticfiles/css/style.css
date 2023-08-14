@@ -1,0 +1,230 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: Nunito, Arial, sans-serif;
+}
+#checkbox-activate {
+  display: none;
+}
+#checkbox-activate:checked {
+  animation: preventClick 3.9s ease 1 forwards;
+}
+#checkbox-activate:checked + label {
+  animation: preventClick 3.9s ease 1 forwards;
+}
+#checkbox-activate:checked + label > .btn-activate {
+  animation: beGreen 0.2s ease 1 forwards;
+  animation-delay: 3.5s;
+}
+#checkbox-activate:checked + label > .btn-activate > .check-icon {
+  box-shadow: 0 0 0 0 inset;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  animation: spin 5s ease 1 forwards;
+  animation-delay: 0.2s;
+}
+#checkbox-activate:checked
+  + label
+  > .btn-activate
+  > .check-icon
+  > .fa-arrow-up {
+  transform: translate(-50%, -230%);
+}
+#checkbox-activate:checked
+  + label
+  > .btn-activate
+  > .check-icon
+  > .fa-check {
+  transform: translate(-50%, -50%);
+  animation: iconBeGreen 0.1s ease 1 forwards;
+  animation-delay: 3.5s;
+}
+#checkbox-activate:checked
+  + label
+  > .btn-activate
+  > .btn-text
+  > p:first-of-type {
+  animation: rotateFirst 0.3s cubic-bezier(0.2, 0.5, 0.2, 1.2) 1 forwards;
+}
+#checkbox-activate:checked
+  + label
+  > .btn-activate
+  > .btn-text
+  > p:nth-of-type(2) {
+  animation: rotateSecond 4.3s cubic-bezier(0.2, 0.5, 0.2, 1.2) 1 forwards;
+}
+#checkbox-activate:checked
+  + label
+  > .btn-activate
+  > .btn-text
+  > p:nth-of-type(3) {
+  animation: rotateThird 0.3s cubic-bezier(0.2, 0.5, 0.2, 1.2) 1 forwards;
+  animation-delay: 3.6s;
+}
+.btn-activate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  background: #4d31f3;
+  box-shadow: 0 0 20px rgba(77, 49, 243, 0.5);
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  transition: all 0.2s ease;
+  user-select: none;
+  -moz-user-select: none;
+  cursor: pointer;
+}
+.btn-activate:hover > .check-icon > .fa-arrow-up {
+  transform: translate(-50%, -230%);
+}
+.btn-activate:hover > .check-icon > .fa-check {
+  transform: translate(-50%, -50%);
+}
+.btn-activate:active {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+.check-icon {
+  position: relative;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 20px inset #fff, 0 2px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.check-icon > .fa-arrow-up,
+.check-icon .fa-check {
+  color: #4d31f3;
+  transition: all 0.4s cubic-bezier(0.2, 0.5, 0.2, 1.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+}
+.check-icon .fa-check {
+  transform: translate(-50%, 130%);
+}
+.btn-text {
+  font-size: 1.4rem;
+  width: 95px;
+  height: 30px;
+  margin-right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.btn-text > p {
+  position: absolute;
+  transition: all 0.2s ease;
+  display: block;
+}
+.btn-text > p:nth-of-type(2) {
+  transform: translateY(120%);
+}
+.btn-text > p:nth-of-type(3) {
+  transform: translateY(240%);
+}
+@keyframes spin {
+  0% {
+    box-shadow: none;
+    transform: rotate(0);
+    border-top-color: #fff;
+  }
+  20% {
+    box-shadow: none;
+    transform: rotate(360deg);
+    border-top-color: #fff;
+  }
+  40% {
+    box-shadow: none;
+    transform: rotate(720deg);
+    border-top-color: #fff;
+  }
+  60% {
+    box-shadow: none;
+    transform: rotate(1080deg);
+    border-top-color: #fff;
+  }
+  80%,
+  100% {
+    transform: rotate(1080deg);
+    box-shadow: 0 0 0 20px inset #fff, 0 2px 3px rgba(0, 0, 0, 0.1);
+    border-top-color: transparent;
+  }
+}
+@keyframes rotateFirst {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+}
+@keyframes rotateSecond {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+}
+@keyframes rotateThird {
+  0% {
+    transform: translateY(240%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes beGreen {
+  0% {
+    background: #4d31f3;
+    box-shadow: 0 0 20px rgba(77, 49, 243, 0.5);
+  }
+  100% {
+    background: #2ac06a;
+    box-shadow: 0 0 20px rgba(42, 192, 106, 0.5);
+  }
+}
+@keyframes iconBeGreen {
+  from {
+    color: #4d31f3;
+  }
+  to {
+    color: #2ac06a;
+  }
+}
+@keyframes preventClick {
+  0%,
+  99.9% {
+    pointer-events: none;
+  }
+  100% {
+    pointer-events: auto;
+  }
+}

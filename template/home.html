@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- ========================= SECTION MAIN ========================= -->
+    <section class="section-intro carousel-section">
+        <div class="carousel">
+            {% for product in products %}
+                <a href="{{ product.get_url }}"><img class="carousel-img" src="{{ product.images.url }}" alt="Product Image"></a>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- ========================= SECTION MAIN END// ========================= -->
+
+    <!-- ========================= SECTION  ========================= -->
+    <section class="section-name padding-y-sm">
+        <div class="container">
+
+            <header class="section-heading">
+                <a href="{% url 'store' %}" class="btn btn-outline-dark float-right">See all</a>
+                <h3 class="section-title">Popular products</h3>
+            </header>
+
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-3">
+                        <div class="card card-product-grid">
+                            <a href="{{ product.get_url }}" class="img-wrap">
+                                <img src="{{ product.images.url }}" alt="Product Image">
+                            </a>
+                            <figcaption class="info-wrap">
+                                <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                                <div class="price mt-1">{{ product.price }}</div>
+                            </figcaption>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- ========================= SECTION  END// ========================= -->
+
+    <script>
+        const carouselSection = document.querySelector('.carousel-section');
+        const carousel = carouselSection.querySelector('.carousel');
+        const images = carousel.getElementsByTagName('img');
+        const prevButton = document.createElement('div');
+        const nextButton = document.createElement('div');
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        function showImage(index) {
+            for (let i = 0; i < images.length; i++) {
+                images[i].style.display = 'none';
+            }
+            images[index].style.display = 'block';
+        }
+
+        function nextImage() {
+            currentIndex++;
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+            showImage(currentIndex);
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextImage, 1000); // Adjust the slide duration (in milliseconds) as needed
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        prevButton.textContent = '←';
+        nextButton.textContent = '→';
+        prevButton.classList.add('prev');
+        nextButton.classList.add('next');
+        prevButton.addEventListener('click', prevImage);
+        nextButton.addEventListener('click', nextImage);
+        carousel.appendChild(prevButton);
+        carousel.appendChild(nextButton);
+
+        showImage(currentIndex);
+        startAutoSlide();
+        carousel.addEventListener('mouseenter', stopAutoSlide);
+        carousel.addEventListener('mouseleave', startAutoSlide);
+    </script>
+{% endblock %}

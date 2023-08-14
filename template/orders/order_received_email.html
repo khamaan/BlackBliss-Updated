@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Complete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #4d31f3;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .shipping-address {
+            margin-bottom: 20px;
+        }
+
+        .payment-details {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Complete</h1>
+    <p>Hi {{ order.user.first_name }}!</p>
+    <p>Your order has been placed successfully.</p>
+    <div class="order-details">
+        <h2>Order Details:</h2>
+        <ul>
+            <li>Order No: {{ order.order_number }}</li>
+            <li>Order Date: {{ order.current_date }}</li>
+            <li>Order Total: {{ order.order_total }}</li>
+        </ul>
+    </div>
+    <div class="order-items">
+        <h2>Order Items:</h2>
+        <ul>
+            <li>{{ orderproduct.product.product_name }} - {{ orderproduct.product.quantity }} x {{ orderproduct.product.product_price }}</li>
+        </ul>
+    </div>
+    <div class="shipping-address">
+        <h2>Shipping Address:</h2>
+        <p>{{ order.address_line_1 }}, {{ order.address_line_2 }}</p>
+        <p>{{ order.city }}, {{ order.state }}</p>
+    </div>
+    <div class="payment-details">
+        <h2>Payment Details:</h2>
+        <ul>
+            <li>Payment Method: {{ transID.payment_method }}</li>
+            <li>Amount Paid: {{ transID.amount_paid }}</li>
+            <li>Payment Status: {{ transID.status }}</li>
+        </ul>
+    </div>
+</body>
+</html>
