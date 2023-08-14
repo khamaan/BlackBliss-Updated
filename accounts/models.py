@@ -2,20 +2,21 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 # Create your models here.
 class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, username, password=None):
+    def create_user(self, first_name, last_name, email, username, password=None, newsletter_subscription=False):
         if not email:
             raise ValueError("Users must have an email address")
         if not username:
-            raise ValueError("Users must have an username")
+            raise ValueError("Users must have a username")
 
         user = self.model(
             email=self.normalize_email(email),
             username=username,
             first_name=first_name,
             last_name=last_name,
+            newsletter_subscription=newsletter_subscription,
         )
         user.set_password(password)
-        user.save(using=self.db)
+        user.save(using=self._db)
         return user
 
     def create_superuser(self, first_name, last_name, email, username, password):
@@ -25,11 +26,12 @@ class MyAccountManager(BaseUserManager):
             password=password,
             first_name=first_name,
             last_name=last_name,
+            newsletter_subscription=True,  # Set newsletter_subscription to True for superusers
         )
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
-        user.save(using=self.db)
+        user.save(using=self._db)
         return user
     
 class Account(AbstractUser):
